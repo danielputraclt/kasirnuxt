@@ -10,12 +10,11 @@
 
           <v-list>
             <v-list-item-group>
-              <v-list-item v-for="( category, index ) in categories">
+              <v-list-item v-for="(category, index) in categories">
                 <v-list-item-title>
-{{ category.title}}
-</v-list-item-title>
-                </v-list-item> 
-
+                  {{ category.title }}
+                </v-list-item-title>
+              </v-list-item>
             </v-list-item-group>
           </v-list>
         </v-menu>
@@ -48,10 +47,10 @@ export default {
           id: 1,
           title: 'Smartphone',
         },
-{
+        {
           id: 2,
           title: 'Camera',
-        },        
+        },
         {
           id: 3,
           title: 'TV',
