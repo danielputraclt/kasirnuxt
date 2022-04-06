@@ -2,15 +2,17 @@
   <v-row>
     <v-row>
       <v-col cols="10"> Search </v-col>
+
       <v-col cols="2">
         <v-menu>
-          <template v-slot:activator="{ on: category }">
-            <v-btn v-on="category" color="primary"> Category </v-btn>
+          <template v-slot:activator="{ on: category }" >
+            <v-btn v-on="category" color="primary" > Category </v-btn>
           </template>
 
           <v-list>
-            <v-list-item-group>
-              <v-list-item v-for="(category, index) in categories">
+            <v-list-item-group v-model="categoryID">
+              <v-list-item v-for="(category, index) in categories"
+              :value="category.id">
                 <v-list-item-title>
                   {{ category.title }}
                 </v-list-item-title>
@@ -22,7 +24,7 @@
     </v-row>
 
     <v-row>
-      <v-col v-for="(product, index) in products" cols="2">
+      <v-col v-for="(product, index) in filteredProducts" cols="2">
         <v-card :title="product.title" ripple="true">
           <v-card-action>
             <v-img
@@ -42,7 +44,12 @@
 export default {
   data() {
     return {
+      categoryID:false,
       categories: [
+        {
+          id: false,
+          title: 'All',
+        },
         {
           id: 1,
           title: 'Smartphone',
@@ -52,7 +59,7 @@ export default {
           title: 'Camera',
         },
         {
-          id: 3,
+          id: 4,
           title: 'TV',
         },
       ],
@@ -69,7 +76,14 @@ export default {
           title: 'Canon EOS 700d',
           thumbnail: 'canon-eos-700d.png',
           price: 2000000,
-          categoryID: 1,
+          categoryID: 2,
+        },
+        {
+          id: 2,
+          title: 'Asus',
+          thumbnail: 'asus-zenfone.png',
+          price: 2000000,
+          categoryID: 2,
         },
         {
           id: 2,
@@ -125,7 +139,7 @@ export default {
           title: 'Asus',
           thumbnail: 'asus-zenfone.png',
           price: 2000000,
-          categoryID: 1,
+          categoryID: 2,
         },
         {
           id: 2,
@@ -146,25 +160,27 @@ export default {
           title: 'Asus',
           thumbnail: 'asus-zenfone.png',
           price: 2000000,
-          categoryID: 1,
+          categoryID: 2,
         },
         {
           id: 2,
           title: 'Asus',
           thumbnail: 'asus-zenfone.png',
           price: 2000000,
-          categoryID: 1,
-        },
-        {
-          id: 2,
-          title: 'Asus',
-          thumbnail: 'asus-zenfone.png',
-          price: 2000000,
-          categoryID: 1,
+          categoryID: 3,
         },
       ],
     }
   },
+
+  computed: {
+    filteredProducts() {
+      if(this.categoryID){
+        return this.products.filter(s => s.categoryID == this.categoryID)
+      }
+      return this.products
+    }
+  }
 }
 </script>
 
