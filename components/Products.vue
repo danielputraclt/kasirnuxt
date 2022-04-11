@@ -1,13 +1,17 @@
 <template>
-  <v-row>
+  <div>
     <v-row>
       <v-col cols="10">
         <v-autocomplete
-        label="Products"
-        placeholder="Start typing to search"
-        :search-input.sync="search"
-        :loading="isLoading"
-        ></v-autocomplete>
+          label="Products"
+          placeholder="Start typing to search"
+          :search-input.sync="search"
+          :loading="isLoading"
+          :items="itemsSearch"
+          item-text="title"
+          item-value="id">
+          <option value=""></option>
+          </v-autocomplete>
       </v-col>
 
       <v-col cols="2">
@@ -36,7 +40,7 @@
 
     <v-row>
       <v-col v-for="(product, index) in filteredProducts" cols="2" :key="index">
-        <v-card :title="product.title" ripple=true>
+        <v-card :title="product.title" ripple="true">
           <v-card-action>
             <v-img
               :src="require(`@/assets/images/products/${product.thumbnail}`)"
@@ -48,7 +52,7 @@
         </v-card>
       </v-col>
     </v-row>
-  </v-row>
+  </div>
 </template>
 
 <script>
@@ -183,7 +187,7 @@ export default {
       ],
       search: null,
       isLoading: false,
-      
+      itemsSearch: [],
     }
   },
 
@@ -197,12 +201,17 @@ export default {
   },
 
   watch: {
-    search(val){
+    search(val) {
       console.log(val)
       this.isLoading = true
-        setTimeout(() => { this.isLoading = false}, 500)
-    }
-  }
+      setTimeout(() => {
+        this.itemsSearch = this.products.filter((e) => {
+          this.isLoading = false
+          return e.title
+        })
+      }, 1000)
+    },
+  },
 }
 </script>
 
