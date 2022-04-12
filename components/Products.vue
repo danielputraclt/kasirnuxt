@@ -9,8 +9,10 @@
           :loading="isLoading"
           :items="itemsSearch"
           item-text="title"
-          item-value="id">
-          <option value=""></option>
+          item-value="id"
+          v-model="selectedSearch"
+          return-object>
+          
           </v-autocomplete>
       </v-col>
 
@@ -94,21 +96,21 @@ export default {
           categoryID: 2,
         },
         {
-          id: 2,
-          title: 'Asus',
-          thumbnail: 'asus-zenfone.png',
+          id: 4,
+          title: 'Iphone 6 Silver',
+          thumbnail: 'iphone-6-silver.png',
           price: 2000000,
           categoryID: 2,
         },
         {
-          id: 2,
-          title: 'Asus',
-          thumbnail: 'asus-zenfone.png',
+          id: 3,
+          title: 'Canon EOS 750d',
+          thumbnail: 'canon-eos-750d.png',
           price: 2000000,
           categoryID: 1,
         },
         {
-          id: 2,
+          id: 5,
           title: 'Asus',
           thumbnail: 'asus-zenfone.png',
           price: 2000000,
@@ -188,13 +190,18 @@ export default {
       search: null,
       isLoading: false,
       itemsSearch: [],
+      selectedSearch: null,
     }
   },
 
   computed: {
     filteredProducts() {
+      console.log(this.selectedSearch)
       if (this.categoryID) {
         return this.products.filter((s) => s.categoryID == this.categoryID)
+      }
+      else if(this.selectedSearch){
+         return this.products.filter((s) => s.title == this.selectedSearch.title)
       }
       return this.products
     },
@@ -202,7 +209,6 @@ export default {
 
   watch: {
     search(val) {
-      console.log(val)
       this.isLoading = true
       setTimeout(() => {
         this.itemsSearch = this.products.filter((e) => {
