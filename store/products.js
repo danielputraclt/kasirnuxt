@@ -119,7 +119,7 @@ export const state = () => ({
         },
         {
           id: 2,
-          title: 'Asus',
+          title: 'ID 3',
           thumbnail: 'asus-zenfone.png',
           price: 2000000,
           categoryID: 3,

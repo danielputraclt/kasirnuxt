@@ -44,7 +44,10 @@
 
     <v-row>
       <v-col v-for="(product, index) in filteredProducts" cols="2" :key="index">
-        <v-card :title="product.title" ripple="true">
+        <v-card 
+        :title="product.title" 
+        ripple="true"
+        @click="addToCart(product.id)">
           <v-card-action>
             <v-img
               :src="require(`@/assets/images/products/${product.thumbnail}`)"
@@ -73,8 +76,9 @@ export default {
   },
 
 methods: {
-  ...mapActions('products', {
-    updateCategoryId: 'updateCategoryId'
+  ...mapActions({
+    updateCategoryId: 'products/updateCategoryId',
+    addToCart: 'carts/addToCart'
   }),
   resetSearchCategory(){
     this.categoryID = false
