@@ -125,4 +125,21 @@ export const state = () => ({
           categoryID: 3,
         },
       ],
-})
+      categoryID: 0,
+    })
+
+    export const mutations = {
+      updateCategoryId(state, categoryID){
+        state.categoryID = categoryID
+      },
+      cetak(state, categoryID){
+       alert(categoryID)
+      }
+    }
+
+    export const actions = {
+      updateCategoryId({commit}, categoryID){
+        commit('updateCategoryId', categoryID)
+        commit('cetak', categoryID)
+      }
+    }

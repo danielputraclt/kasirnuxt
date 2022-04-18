@@ -24,12 +24,13 @@
           </template>
 
           <v-list>
-            <v-list-item-group v-model="categoryID">
+            <v-list-item-group>
               <v-list-item
                 v-for="(category, index) in categories"
                 :key="index"
                 :value="category.id"
                 :disabled="category.id == categoryID"
+                @change="updateCategoryId(category.id)"
               >
                 <v-list-item-title>
                   {{ category.title }}
@@ -60,14 +61,10 @@
 
 <script>
 
-import { mapState } from 'vuex'
+import { mapState, mapMutations, mapActions } from 'vuex'
 export default {
   data() {
     return {
-      categoryID: false,
-      
-      
-
       search: null,
       isLoading: false,
       itemsSearch: [],
@@ -76,6 +73,9 @@ export default {
   },
 
 methods: {
+  ...mapActions('products', {
+    updateCategoryId: 'updateCategoryId'
+  }),
   resetSearchCategory(){
     this.categoryID = false
   }
@@ -93,7 +93,8 @@ methods: {
     },
     ...mapState('products', {
       products: 'products',
-      categories: 'categories'
+      categories: 'categories',
+      categoryID: 'categoryID'
     })
   },
 
