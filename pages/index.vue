@@ -4,11 +4,15 @@
       <product></product>
     </v-col>
 
-    <v-col cols="4" class="frame-content white"> PRODUCT </v-col>
+    <v-col cols="4" class="frame-content white"> 
+     <order></order>
+    </v-col>
   </v-row>
 </template>
 
 <script>
+
+
 export default {
   name: 'IndexPage',
 }
