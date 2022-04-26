@@ -42,6 +42,17 @@
                         </v-list-item-title>
                     </v-list-item-action>
                 </v-list-item>
+
+                <v-list-item v-if="items.length" class="text-h6 black--text grey lighten-2">
+                    <v-list-item-content>
+                        <v-list-item-title>
+                             SubTotal 
+                        </v-list-item-title>
+                    </v-list-item-content>
+                    <v-list-item-action>
+                        {{currency(subTotal)}}
+                    </v-list-item-action>
+                </v-list-item>
             </v-list>
         </v-col>
        
@@ -69,7 +80,8 @@ export default {
         }),
         ...mapGetters('carts',{
             cartItems: 'cartItems',
-            itemTotal: 'itemTotal'
+            itemTotal: 'itemTotal',
+            subTotal: 'subTotal'
         }),
     },
 }
