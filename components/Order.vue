@@ -46,7 +46,7 @@
                 <v-list-item v-if="items.length" class="text-h6 black--text grey lighten-2">
                     <v-list-item-content>
                         <v-list-item-title>
-                             SubTotal 
+                             Sub Total 
                         </v-list-item-title>
                     </v-list-item-content>
                     <v-list-item-action>
@@ -67,13 +67,29 @@
                         <v-list-item disabled class="black--text" :key="index">
                             <v-list-item-content>
                                 <v-list-item-title>{{ additional.title }}</v-list-item-title>
+                                <v-list-item-subtitle v-if="additional.mode== 'percentage'">
+                                    {{ currency(additional.value)}}%
+                                </v-list-item-subtitle>
                             </v-list-item-content>
                             <v-list-item-action>
-                                <v-list-item>{{ currency(additional.value) }}</v-list-item>
+                                <v-list-item v-if="additional.mode== 'fix'">{{ currency(additional.value) }}</v-list-item>
+                                <v-list-item v-if="additional.mode== 'percentage'">{{ currency(calculatePercentage(additional.value)) }}</v-list-item>
                             </v-list-item-action>
                         </v-list-item>
                     </template>
                 </v-list-group>
+
+                 <v-list-item v-if="items.length" class="text-h6 black--text grey lighten-2">
+                    <v-list-item-content>
+                        <v-list-item-title>
+                             Total 
+                        </v-list-item-title>
+                    </v-list-item-content>
+                    <v-list-item-action>
+                        {{currency(total)}}
+                    </v-list-item-action>
+                </v-list-item>
+
             </v-list>
         </v-col>
        
@@ -103,7 +119,9 @@ export default {
         ...mapGetters('carts',{
             cartItems: 'cartItems',
             itemTotal: 'itemTotal',
-            subTotal: 'subTotal'
+            subTotal: 'subTotal',
+            calculatePercentage: 'calculatePercentage',
+            total: 'total'
         }),
     },
 }
